@@ -1,0 +1,14 @@
+[project]
+name = "huawei"
+version = "0.1.0"
+description = "Ctrl+左键拖拽选区、OCR识别并发送到DeepSeek"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "pynput",
+  "mss",
+  "pillow",
+  "pytesseract",
+  "httpx[http2]",
+  "rich>=14.2.0",
+]

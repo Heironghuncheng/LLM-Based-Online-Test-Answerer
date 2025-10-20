@@ -1,0 +1,84 @@
+# OCR + DeepSeek 助手配置文件
+# OCR + DeepSeek Assistant Configuration
+# 说明：所有配置均从本文件读取；未定义项使用默认值
+# All settings are loaded from this file; missing keys use defaults.
+# 支持的配置项（严格校验，未知配置将被忽略）：
+# Supported keys (strict validation; unknown keys will be ignored):
+# deepseek_api_key, deepseek_model, deepseek_fast_model, deepseek_reasoning_model,
+# tesseract_cmd, tesseract_lang, log_language, model_output_language,
+# formal_answer_timeout_seconds, analysis_stage_mode, single_stage_model, request_retry_attempts
+
+# ==================== 语言设置 | Language ====================
+# 日志语言（UI）："zh" 或 "en"
+# Log language (UI): "zh" or "en"
+log_language = "zh"
+
+# 模型输出语言："zh" 或 "en"（未设置时默认跟随日志语言）
+# Model output language: "zh" or "en" (defaults to log language if unset)
+model_output_language = "zh"
+
+# ==================== DeepSeek API 配置 | API ====================
+# DeepSeek API Key（仅从本文件读取）
+# DeepSeek API Key (read only from this file)
+deepseek_api_key = ""
+
+# ==================== 阶段模式与超时/重试配置 | Stage Mode & Timeout/Retry ====================
+# 单/多阶段模式："single" 或 "multi"（默认 multi）
+# Stage mode: "single" or "multi" (default: "multi")
+analysis_stage_mode = "multi"
+
+# 单阶段模式下使用的统一模型（仅当 analysis_stage_mode = "single" 时生效）
+# Model used in single-stage mode (effective only when analysis_stage_mode = "single")
+single_stage_model = "deepseek-chat"
+
+# 正式作答的最长时间（秒）；超过后自动切换到快速模型重试
+# Max duration for formal solving (seconds); fallback to fast model if exceeded
+formal_answer_timeout_seconds = 60
+
+# 模型请求失败时的重试次数（默认 3）
+# Retry attempts on model request failures (default: 3)
+request_retry_attempts = 3
+
+# ==================== 双阶段分析模型配置 | Two-Stage Model ====================
+# 快速模型：用于第一阶段的文本清理和题型识别
+# Fast model: Stage 1 for text cleaning and type identification
+# 推荐使用 deepseek-chat，速度快，成本低
+# Recommended: deepseek-chat (fast, lower cost)
+deepseek_fast_model = "deepseek-chat"
+
+# 思考模型：用于第二阶段的正式解答
+# Reasoning model: Stage 2 for formal solving
+# 推荐使用 deepseek-reasoner，推理能力强
+# Recommended: deepseek-reasoner (strong reasoning)
+deepseek_reasoning_model = "deepseek-reasoner"
+
+# （可选）默认模型：用于未指定场景
+# Optional default model: used when no specific model is provided
+deepseek_model = "deepseek-reasoner"
+
+# ==================== OCR / Tesseract 配置 | OCR / Tesseract ====================
+# Tesseract 可执行文件路径（若已在 PATH 中可不设置）
+# Tesseract executable path (omit if available in PATH)
+# Windows 示例 | Windows example:
+# tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+# 若不设置则置为空字符串 | Leave empty if not set
+tesseract_cmd = ""
+
+# OCR 识别语言
+# OCR recognition languages
+# 常用配置 | Common settings:
+# - "eng"           # 仅英文 | English only
+# - "chi_sim"       # 仅简体中文 | Simplified Chinese only
+# - "chi_sim+eng"   # 中英混合（推荐）| Chinese + English (recommended)
+# - "chi_tra+eng"   # 繁体中文+英文 | Traditional Chinese + English
+tesseract_lang = "chi_sim+eng"
+
+# ==================== 使用建议 | Usage Tips ====================
+# 1. 性能：快速模型用于预处理，思考模型用于复杂推理
+#    Performance: use fast model for preprocessing, reasoning model for complex tasks
+# 2. 成本：根据题目复杂度选择合适的模型组合
+#    Cost: choose model mix based on question complexity
+# 3. OCR：确保安装了对应语言包，中文需要 chi_sim 或 chi_tra
+#    OCR: ensure language packs installed; Chinese needs chi_sim or chi_tra
+# 4. 多语言：程序采用 i18n 系统，默认中文界面
+#    i18n: app uses internationalization; default UI language is Chinese
