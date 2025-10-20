@@ -1,5 +1,5 @@
 [project]
-name = "huawei"
+name = "onlinetest"
 version = "0.1.0"
 description = "Ctrl+左键拖拽选区、OCR识别并发送到DeepSeek"
 readme = "README.md"
@@ -10,5 +10,5 @@ dependencies = [
   "pillow",
   "pytesseract",
   "httpx[http2]",
-  "rich>=14.2.0",
+  "rich",
 ]
